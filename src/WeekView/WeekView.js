@@ -95,9 +95,13 @@ export default class WeekView extends Component {
     const {
       numberOfDays,
       headerStyle,
+      headerTitle,
+      headerLabelStyle,
       formatDateHeader,
       onEventPress,
       events,
+      eventViewStyle,
+      eventTextStyle,
     } = this.props;
     const { currentMoment } = this.state;
     const dates = this.prepareDates(currentMoment, numberOfDays);
@@ -106,9 +110,11 @@ export default class WeekView extends Component {
         <View style={styles.header}>
           <Header
             style={headerStyle}
+            headerTitle={headerTitle}
             formatDate={formatDateHeader}
             selectedDate={currentMoment}
             numberOfDays={numberOfDays}
+            labelStyle={headerLabelStyle || {}}
           />
         </View>
         <ScrollView>
@@ -139,6 +145,8 @@ export default class WeekView extends Component {
                     numberOfDays={numberOfDays}
                     onEventPress={onEventPress}
                     events={events}
+                    viewStyle={eventViewStyle || {}}
+                    labelStyle={eventTextStyle || {}}
                   />
                 </View>
               ))}
@@ -152,12 +160,16 @@ export default class WeekView extends Component {
 
 WeekView.propTypes = {
   events: Events.propTypes.events,
+  eventViewStyle: PropTypes.object,
+  eventTextStyle: PropTypes.object,
   numberOfDays: PropTypes.oneOf([1, 3, 7]).isRequired,
   onSwipeNext: PropTypes.func,
   onSwipePrev: PropTypes.func,
   formatDateHeader: PropTypes.string,
   onEventPress: PropTypes.func,
   headerStyle: PropTypes.object,
+  headerTitle: PropTypes.string,
+  headerLabelStyle: PropTypes.object,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   locale: PropTypes.string,
 };

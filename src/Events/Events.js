@@ -130,6 +130,8 @@ class Events extends Component {
       numberOfDays,
       selectedDate,
       times,
+      viewStyle,
+      labelStyle,
     } = this.props;
     const sortedEvents = this.sortEventByDates(events);
     let totalEvents = this.getEventsByNumberOfDays(numberOfDays, sortedEvents, selectedDate);
@@ -153,6 +155,8 @@ class Events extends Component {
                   event={item.data}
                   style={item.style}
                   onPress={this.onEventPress}
+                  viewStyle={viewStyle}
+                  labelStyle={labelStyle}
                 />
               ))}
             </View>
@@ -169,6 +173,8 @@ Events.propTypes = {
   onEventPress: PropTypes.func,
   selectedDate: PropTypes.instanceOf(Date),
   times: PropTypes.arrayOf(PropTypes.string),
+  viewStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
 };
 
 Events.defaultProps = {

@@ -6,15 +6,15 @@ import {
 } from 'react-native';
 import styles from './Event.styles';
 
-const Event = ({ event, onPress, style }) => {
+const Event = ({ event, onPress, style, viewStyle, labelStyle, }) => {
   return (
     <TouchableOpacity
       onPress={() => onPress(event)}
       style={[styles.item, style, {
         backgroundColor: event.color,
-      }]}
+      }, viewStyle]}
     >
-      <Text style={styles.description}>{event.description}</Text>
+      <Text style={[styles.description, labelStyle]}>{event.description}</Text>
     </TouchableOpacity>
   );
 };
@@ -31,6 +31,8 @@ Event.propTypes = {
   event: eventPropTypes.isRequired,
   onPress: PropTypes.func,
   style: PropTypes.object,
+  viewStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
 };
 
 export default Event;

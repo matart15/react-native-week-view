@@ -38,18 +38,18 @@ const getDayTextStyles = (numberOfDays) => {
 };
 
 const Column = ({
-  column, numberOfDays, format,
+  column, numberOfDays, format, labelStyle,
 }) => {
   return (
     <View style={styles.column}>
-      <Text style={[styles.text, getDayTextStyles(numberOfDays)]}>
+      <Text style={[styles.text, getDayTextStyles(numberOfDays), labelStyle]}>
         {getFormattedDate(column, format)}
       </Text>
     </View>
   );
 };
 
-const Columns = ({ columns, numberOfDays, format }) => {
+const Columns = ({ columns, numberOfDays, format, labelStyle }) => {
   return (
     <View style={styles.columns}>
       {columns.map((column) => {
@@ -59,6 +59,7 @@ const Columns = ({ columns, numberOfDays, format }) => {
             column={column}
             numberOfDays={numberOfDays}
             format={format}
+            labelStyle={labelStyle}
           />
         );
       })}
@@ -66,26 +67,26 @@ const Columns = ({ columns, numberOfDays, format }) => {
   );
 };
 
-const Title = ({ numberOfDays, selectedDate }) => { // eslint-disable-line react/prop-types
+const Title = ({ numberOfDays, selectedDate, headerTitle }) => { // eslint-disable-line react/prop-types
   return (
     <View style={styles.title}>
       <Text
         style={[styles.text, { fontSize: getFontSizeHeader(numberOfDays) }]}
       >
-        {getCurrentMonth(selectedDate)}
+        {headerTitle || getCurrentMonth(selectedDate)}
       </Text>
     </View>
   );
 };
 
 const WeekViewHeader = ({
-  numberOfDays, selectedDate, formatDate, style,
+  numberOfDays, selectedDate, formatDate, headerTitle, style, labelStyle,
 }) => {
   const columns = getColumns(numberOfDays, selectedDate);
   return (
     <View style={[styles.container, style]}>
-      <Title numberOfDays={numberOfDays} selectedDate={selectedDate} />
-      {columns && <Columns format={formatDate} columns={columns} numberOfDays={numberOfDays} />}
+      <Title numberOfDays={numberOfDays} selectedDate={selectedDate} headerTitle={headerTitle} labelStyle={labelStyle} />
+      {columns && <Columns format={formatDate} columns={columns} numberOfDays={numberOfDays} labelStyle={labelStyle} />}
     </View>
   );
 };
@@ -94,7 +95,9 @@ WeekViewHeader.propTypes = {
   numberOfDays: PropTypes.oneOf([1, 3, 7]).isRequired,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   formatDate: PropTypes.string,
+  headerTitle: PropTypes.string,
   style: PropTypes.object,
+  labelStyle: PropTypes.object,
 };
 
 WeekViewHeader.defaultProps = {

@@ -49,10 +49,13 @@ const Column = ({
   );
 };
 
-const Columns = ({ columns, numberOfDays, format, labelStyle }) => {
+const Columns = ({ columns, numberOfDays, format, labelStyle, renderColumn, }) => {
   return (
     <View style={styles.columns}>
       {columns.map((column) => {
+        if (renderColumn){
+          return renderColumn({ column, numberOfDays, format, labelStyle, })
+        }
         return (
           <Column
             key={column}
@@ -67,7 +70,7 @@ const Columns = ({ columns, numberOfDays, format, labelStyle }) => {
   );
 };
 
-const Title = ({ numberOfDays, selectedDate, headerTitle }) => { // eslint-disable-line react/prop-types
+const Title = ({ numberOfDays, selectedDate, headerTitle, }) => { // eslint-disable-line react/prop-types
   return (
     <View style={styles.title}>
       <Text
@@ -80,13 +83,13 @@ const Title = ({ numberOfDays, selectedDate, headerTitle }) => { // eslint-disab
 };
 
 const WeekViewHeader = ({
-  numberOfDays, selectedDate, formatDate, headerTitle, style, labelStyle,
+  numberOfDays, selectedDate, formatDate, headerTitle, style, labelStyle, renderColumn,
 }) => {
   const columns = getColumns(numberOfDays, selectedDate);
   return (
     <View style={[styles.container, style]}>
       <Title numberOfDays={numberOfDays} selectedDate={selectedDate} headerTitle={headerTitle} labelStyle={labelStyle} />
-      {columns && <Columns format={formatDate} columns={columns} numberOfDays={numberOfDays} labelStyle={labelStyle} />}
+      {columns && <Columns format={formatDate} columns={columns} numberOfDays={numberOfDays} labelStyle={labelStyle} renderColumn={renderColumn} />}
     </View>
   );
 };
@@ -98,6 +101,7 @@ WeekViewHeader.propTypes = {
   headerTitle: PropTypes.string,
   style: PropTypes.object,
   labelStyle: PropTypes.object,
+  renderColumn: PropTypes.func,
 };
 
 WeekViewHeader.defaultProps = {

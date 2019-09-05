@@ -97,6 +97,7 @@ export default class WeekView extends Component {
       headerStyle,
       headerTitle,
       headerLabelStyle,
+      renderHeader,
       formatDateHeader,
       onEventPress,
       events,
@@ -115,6 +116,7 @@ export default class WeekView extends Component {
             selectedDate={currentMoment}
             numberOfDays={numberOfDays}
             labelStyle={headerLabelStyle || {}}
+            renderColumn={renderHeader}
           />
         </View>
         <ScrollView>
@@ -172,6 +174,7 @@ WeekView.propTypes = {
   headerLabelStyle: PropTypes.object,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   locale: PropTypes.string,
+  renderHeader: PropTypes.func,
 };
 
 WeekView.defaultProps = {

@@ -9,12 +9,7 @@ import styles from './Header.styles';
 
 const getColumns = (numberOfDays, selectedDate) => {
   const columns = [];
-  let initial = 0;
-  if (numberOfDays === 7) {
-    initial = 1;
-    initial -= moment().isoWeekday();
-  }
-  for (let i = initial; i < (numberOfDays + initial); i += 1) {
+  for (let i = 0; i < numberOfDays; i += 1) {
     let date = moment(selectedDate);
     date = date.add(i, 'd');
     columns.push(date.toDate());
